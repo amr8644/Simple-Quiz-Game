@@ -10,18 +10,19 @@ const result = document.querySelector(".result");
 const submit = document.querySelector("#submit");
 const next = document.querySelector("#next");
 const sentence = document.querySelector(".sentence");
+const totalScore = document.querySelector(".total-score");
+
+let score = 0;
 
 window.addEventListener("DOMContentLoaded", function () {
   newQuestion();
 });
 
 next.addEventListener("click", function () {
-  answer.value = "";
-  num1 = Math.floor(Math.random() * 10);
-  num2 = Math.floor(Math.random() * 10);
-  question.innerHTML = `${num1} x ${num2}`;
-  result.innerHTML = "";
-  sentence.innerHTML = "";
+  let item = num1 * num2;
+  if (answer.value == item) {
+    nextQuestion();
+  }
 });
 
 submit.addEventListener("click", function () {
@@ -30,15 +31,27 @@ submit.addEventListener("click", function () {
     result.innerHTML = "Correct Answer";
     result.style.backgroundColor = "#d0f4ba";
     result.style.color = "#007621";
+    score++;
   } else if (answer.value == "") {
-    sentence.innerHTML = "Please type something";
+    sentence.innerHTML = "Please type something...";
     sentence.style.color = "#9d0208";
   } else {
-    result.innerHTML = "Wrong Answer";
+    result.innerHTML = "Incorrect Answer";
     result.style.backgroundColor = "#ff758f";
     result.style.color = "#780116";
+    score--;
   }
+  totalScore.innerHTML = `Score : ${score}`;
 });
+
+function nextQuestion() {
+  answer.value = "";
+  num1 = Math.floor(Math.random() * 10);
+  num2 = Math.floor(Math.random() * 10);
+  question.innerHTML = `${num1} x ${num2}`;
+  result.innerHTML = "";
+  sentence.innerHTML = "";
+}
 
 function newQuestion() {
   question.innerHTML = `${num1} x ${num2}`;
